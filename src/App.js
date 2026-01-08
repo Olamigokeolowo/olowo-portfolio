@@ -14,8 +14,6 @@ const Portfolio = () => {
     setTheme(savedTheme);
   }, []);
 
-  const toggleMenu = () => setMenuOpen((s) => !s);
-
   useEffect(() => {
     localStorage.setItem("theme", theme);
   }, [theme]);
@@ -31,6 +29,7 @@ const Portfolio = () => {
     }
   };
 
+  const toggleMenu = () => setMenuOpen((s) => !s);
   const handleNavClick = (sectionId) => {
     scrollToSection(sectionId);
     setMenuOpen(false);
@@ -129,7 +128,7 @@ const Portfolio = () => {
       description:
         "A personalized Diabetes prevention platform journey app to help users stay fit and healthy. This is a health assistant app focused on diabetes awareness and prevention, tailored for the african community.",
       tech: ["Next.js", "Python", "PostgresSQL", "React"],
-      live: "https://prochecka.vercel.app",
+      live: "prochecka.vercel.app",
     },
   ];
 
@@ -199,7 +198,6 @@ const Portfolio = () => {
           list-style: none;
         }
 
-        /* Hamburger for small screens */
         .hamburger {
           display: none;
           background: none;
@@ -209,6 +207,7 @@ const Portfolio = () => {
           height: 44px;
           align-items: center;
           justify-content: center;
+          padding: 0;
         }
 
         .hamburger .bar {
@@ -231,60 +230,46 @@ const Portfolio = () => {
           transition: transform 0.25s ease, opacity 0.25s ease;
         }
 
-        .hamburger .bar::before { top: -7px; }
-        .hamburger .bar::after { top: 7px; }
+        .hamburger .bar::before {
+          top: -7px;
+        }
 
-        /* Mobile: hide default nav-links and show mobile menu when open */
-        @media (max-width: 768px) {
-          .nav-links {
-            display: none;
-          }
+        .hamburger .bar::after {
+          top: 7px;
+        }
 
-          .hamburger {
-            display: flex;
-          }
+        .nav-links button {
+          background: none;
+          border: none;
+          color: var(--text-primary);
+          cursor: pointer;
+          font-size: 1rem;
+          font-family: inherit;
+          transition: color 0.3s ease;
+        }
 
-          /* When menuOpen, show vertical mobile nav */
-          .nav-links.open {
-            display: flex;
-            position: absolute;
-            top: 64px;
-            left: 0;
-            right: 0;
-            background-color: var(--bg-primary);
-            flex-direction: column;
-            gap: 0;
-            padding: 1rem 1.5rem 1.5rem 1.5rem;
-            border-bottom: 1px solid var(--border);
-          }
+        .nav-links button:hover {
+          color: var(--primary-color);
+        }
 
-          .nav-links.open li {
-            width: 100%;
-            padding: 0.5rem 0;
-          }
+        .theme-toggle {
+          font-size: 1.5rem;
+          padding: 0.5rem;
+        }
 
-          .nav-links.open button {
-            width: 100%;
-            text-align: left;
-            font-size: 1rem;
-            padding: 0.75rem 0.5rem;
-            background: none;
-            border: none;
-          }
+        section {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 5rem 2rem;
+        }
 
-          /* Transform hamburger to X when open */
-          .hamburger.open .bar {
-            transform: rotate(45deg);
-          }
-
-          .hamburger.open .bar::before {
-            transform: rotate(90deg) translateX(0);
-            top: 0;
-          }
-
-          .hamburger.open .bar::after {
-            opacity: 0;
-          }
+        #home {
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          padding-top: 5rem;
         }
 
         .hero-content h1 {
@@ -609,17 +594,12 @@ const Portfolio = () => {
         }
 
         @media (max-width: 768px) {
-          .nav-links {
-            display: none;
-          }
-
           .hamburger {
             display: flex;
           }
 
-          /* When menuOpen, show vertical mobile nav */
-          .nav-links.open {
-            display: flex;
+          .nav-links {
+            display: none;
             position: absolute;
             top: 64px;
             left: 0;
@@ -631,21 +611,21 @@ const Portfolio = () => {
             border-bottom: 1px solid var(--border);
           }
 
-          .nav-links.open li {
+          .nav-links.open {
+            display: flex;
+          }
+
+          .nav-links li {
             width: 100%;
             padding: 0.5rem 0;
           }
 
-          .nav-links.open button {
+          .nav-links button {
             width: 100%;
             text-align: left;
-            font-size: 1rem;
             padding: 0.75rem 0.5rem;
-            background: none;
-            border: none;
           }
 
-          /* Transform hamburger to X when open */
           .hamburger.open .bar {
             transform: rotate(45deg);
           }
