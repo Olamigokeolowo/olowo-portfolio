@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const Portfolio = () => {
   const [theme, setTheme] = useState("light");
+  const [menuOpen, setMenuOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -12,6 +13,8 @@ const Portfolio = () => {
     const savedTheme = localStorage.getItem("theme") || "light";
     setTheme(savedTheme);
   }, []);
+
+  const toggleMenu = () => setMenuOpen((s) => !s);
 
   useEffect(() => {
     localStorage.setItem("theme", theme);
@@ -26,6 +29,11 @@ const Portfolio = () => {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  const handleNavClick = (sectionId) => {
+    scrollToSection(sectionId);
+    setMenuOpen(false);
   };
 
   const handleInputChange = (e) => {
@@ -191,38 +199,92 @@ const Portfolio = () => {
           list-style: none;
         }
 
-        .nav-links button {
+        /* Hamburger for small screens */
+        .hamburger {
+          display: none;
           background: none;
           border: none;
-          color: var(--text-primary);
           cursor: pointer;
-          font-size: 1rem;
-          font-family: inherit;
-          transition: color 0.3s ease;
-        }
-
-        .nav-links button:hover {
-          color: var(--primary-color);
-        }
-
-        .theme-toggle {
-          font-size: 1.5rem;
-          padding: 0.5rem;
-        }
-
-        section {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 5rem 2rem;
-        }
-
-        #home {
-          min-height: 100vh;
-          display: flex;
+          width: 44px;
+          height: 44px;
           align-items: center;
           justify-content: center;
-          text-align: center;
-          padding-top: 5rem;
+        }
+
+        .hamburger .bar {
+          display: block;
+          width: 22px;
+          height: 2px;
+          background: var(--text-primary);
+          position: relative;
+          transition: transform 0.25s ease, opacity 0.25s ease;
+        }
+
+        .hamburger .bar::before,
+        .hamburger .bar::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          width: 22px;
+          height: 2px;
+          background: var(--text-primary);
+          transition: transform 0.25s ease, opacity 0.25s ease;
+        }
+
+        .hamburger .bar::before { top: -7px; }
+        .hamburger .bar::after { top: 7px; }
+
+        /* Mobile: hide default nav-links and show mobile menu when open */
+        @media (max-width: 768px) {
+          .nav-links {
+            display: none;
+          }
+
+          .hamburger {
+            display: flex;
+          }
+
+          /* When menuOpen, show vertical mobile nav */
+          .nav-links.open {
+            display: flex;
+            position: absolute;
+            top: 64px;
+            left: 0;
+            right: 0;
+            background-color: var(--bg-primary);
+            flex-direction: column;
+            gap: 0;
+            padding: 1rem 1.5rem 1.5rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+          }
+
+          .nav-links.open li {
+            width: 100%;
+            padding: 0.5rem 0;
+          }
+
+          .nav-links.open button {
+            width: 100%;
+            text-align: left;
+            font-size: 1rem;
+            padding: 0.75rem 0.5rem;
+            background: none;
+            border: none;
+          }
+
+          /* Transform hamburger to X when open */
+          .hamburger.open .bar {
+            transform: rotate(45deg);
+          }
+
+          .hamburger.open .bar::before {
+            transform: rotate(90deg) translateX(0);
+            top: 0;
+          }
+
+          .hamburger.open .bar::after {
+            opacity: 0;
+          }
         }
 
         .hero-content h1 {
@@ -548,8 +610,53 @@ const Portfolio = () => {
 
         @media (max-width: 768px) {
           .nav-links {
-            gap: 1rem;
-            font-size: 0.9rem;
+            display: none;
+          }
+
+          .hamburger {
+            display: flex;
+          }
+
+          /* When menuOpen, show vertical mobile nav */
+          .nav-links.open {
+            display: flex;
+            position: absolute;
+            top: 64px;
+            left: 0;
+            right: 0;
+            background-color: var(--bg-primary);
+            flex-direction: column;
+            gap: 0;
+            padding: 1rem 1.5rem 1.5rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+          }
+
+          .nav-links.open li {
+            width: 100%;
+            padding: 0.5rem 0;
+          }
+
+          .nav-links.open button {
+            width: 100%;
+            text-align: left;
+            font-size: 1rem;
+            padding: 0.75rem 0.5rem;
+            background: none;
+            border: none;
+          }
+
+          /* Transform hamburger to X when open */
+          .hamburger.open .bar {
+            transform: rotate(45deg);
+          }
+
+          .hamburger.open .bar::before {
+            transform: rotate(90deg) translateX(0);
+            top: 0;
+          }
+
+          .hamburger.open .bar::after {
+            opacity: 0;
           }
 
           .hero-content h1 {
@@ -584,35 +691,46 @@ const Portfolio = () => {
           <div className="logo" onClick={() => scrollToSection("home")}>
             Olowo Covenant Olamigoke
           </div>
-          <ul className="nav-links">
+          <button
+            className={`hamburger ${menuOpen ? "open" : ""}`}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            onClick={toggleMenu}
+          >
+            <span className="bar" />
+          </button>
+          <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
             <li>
-              <button onClick={() => scrollToSection("home")}>Home</button>
+              <button onClick={() => handleNavClick("home")}>Home</button>
             </li>
             <li>
-              <button onClick={() => scrollToSection("about")}>About</button>
+              <button onClick={() => handleNavClick("about")}>About</button>
             </li>
             <li>
-              <button onClick={() => scrollToSection("experience")}>
+              <button onClick={() => handleNavClick("experience")}>
                 Experience
               </button>
             </li>
             <li>
-              <button onClick={() => scrollToSection("projects")}>
+              <button onClick={() => handleNavClick("projects")}>
                 Projects
               </button>
             </li>
             <li>
-              <button onClick={() => scrollToSection("education")}>
+              <button onClick={() => handleNavClick("education")}>
                 Education
               </button>
             </li>
             <li>
-              <button onClick={() => scrollToSection("contact")}>
-                Contact
-              </button>
+              <button onClick={() => handleNavClick("contact")}>Contact</button>
             </li>
             <li>
-              <button className="theme-toggle" onClick={toggleTheme}>
+              <button
+                className="theme-toggle"
+                onClick={() => {
+                  toggleTheme();
+                  setMenuOpen(false);
+                }}
+              >
                 {theme === "dark" ? "☀️" : "🌙"}
               </button>
             </li>
