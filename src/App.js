@@ -111,7 +111,7 @@ const Portfolio = () => {
       name: "TrafficChatBot",
       description:
         "AI-powered chat assistant that provides real-time traffic updates, routing suggestions, and incident alerts. Integrates with traffic APIs with the backend using python.",
-      tech: ["Python", "Flask", "Twilio", "Google Maps API", "Docker"],
+      tech: ["Python", "Flask", "Twilio", "React", "Google Maps API", "Docker"],
       live: "https://traffichat.vercel.app",
     },
     {
@@ -127,8 +127,8 @@ const Portfolio = () => {
       name: "ProChecka",
       description:
         "A personalized Diabetes prevention platform journey app to help users stay fit and healthy. This is a health assistant app focused on diabetes awareness and prevention, tailored for the african community.",
-      tech: ["Next.js", "Python", "PostgresSQL", "React"],
-      live: "prochecka.vercel.app",
+      tech: ["Next.js", "Python", "PostgresSQL", "Tailwind CSS"],
+      live: "https://prochecka.vercel.app",
     },
   ];
 
@@ -764,10 +764,10 @@ const Portfolio = () => {
               processes into streamlined, automated systems.
             </p>
             <p>
-              Beyond technical skills, I bring leadership experience as former
-              President of Bells University Student's Association, where I honed
-              my ability to collaborate, communicate, and drive initiatives that
-              impact communities.
+              Beyond technical skills, I bring leadership experience as the
+              current President of Bells University Student's Association, where
+              I honed my ability to collaborate, communicate, and drive
+              initiatives that impact communities.
             </p>
           </div>
           <div>
@@ -938,7 +938,9 @@ const Portfolio = () => {
               Bells University Student's Association (BUSA) Recognition of
               Exemplary Leadership
             </li>
-            <li>President, Bells University Student's Association</li>
+            <li>
+              President, Bells University Student's Association (BUSA) 2025/2026
+            </li>
           </ul>
         </div>
       </section>
